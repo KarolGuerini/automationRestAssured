@@ -32,15 +32,15 @@ public class LojaDeLivros {
         for (int i = 0; i < total; i++) {
             JsonNode jsonBody = jsonArray.get(i);
 
-            bookingId = given().log().all()
-                    .contentType(ContentType.JSON)
-                    .body(jsonBody)
+            bookingId = given()
+                            .contentType(ContentType.JSON)
+                            .body(jsonBody)
                     .when()
-                    .post(url)
+                            .post(url)
                     .then()
-                    .assertThat()
-                    .statusCode(200)
-                    .extract().jsonPath().getInt("bookingid");
+                            .assertThat()
+                            .statusCode(200)
+                            .extract().jsonPath().getInt("bookingid");
 
             bookingIds.put(i, bookingId);
         }
@@ -50,9 +50,9 @@ public class LojaDeLivros {
     public void consultarLivro() {
             int id = bookingIds.get(0);
 
-        given().log().all()
-                .when().get(url + id)
-                .then()
+        given()
+        .when().get(url + id)
+        .then()
                 .assertThat()
                 .statusCode(200)
                 .body("firstname", equalTo("Jim"))
@@ -63,9 +63,9 @@ public class LojaDeLivros {
     public void consultarLivroDoArquivoJson() throws Exception {
         int id = bookingIds.get(1);
 
-        given().log().all()
-                .when().get(url + id)
-                .then()
+        given()
+        .when().get(url + id)
+        .then()
                 .assertThat()
                 .statusCode(200)
                 .body("firstname", equalTo("Milly Bob"))
@@ -76,12 +76,12 @@ public class LojaDeLivros {
     public void buscarLivroPorNomeESobrenome() {
         int id = bookingIds.get(2);
 
-        given().log().all()
+        given()
                 .queryParam("firstname", "Anniee Tikka")
                 .queryParam("lastname", "Brown")
-                .when()
+        .when()
                 .get(url)
-                .then()
+        .then()
                 .log().all()
                 .assertThat()
                 .statusCode(200);
