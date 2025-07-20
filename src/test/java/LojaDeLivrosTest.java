@@ -1,5 +1,3 @@
-package tests;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeAll;
@@ -11,14 +9,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import org.junit.jupiter.api.TestInstance;
-import tests.config.Config;
-import tests.utils.JsonUtils;
+import config.Config;
+import utils.JsonUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class LojaDeLivros {
+public class LojaDeLivrosTest {
 
 
     private int bookingId;
