@@ -69,7 +69,7 @@ public class LojaDeLivrosTest {
         .then()
                 .assertThat()
                 .statusCode(200)
-                .body("firstname", equalTo("Millyy Bob"))
+                .body("firstname", equalTo("Milly Bob"))
                 .body("lastname", equalTo("Brown"));
     }
 
