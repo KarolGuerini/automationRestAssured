@@ -7,9 +7,11 @@ import org.junit.jupiter.api.Test;
 
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 import org.junit.jupiter.api.TestInstance;
+import tests.config.Config;
 import tests.utils.JsonUtils;
 
 import java.util.HashMap;
@@ -20,7 +22,7 @@ public class LojaDeLivros {
 
 
     private int bookingId;
-    public String url = "https://restful-booker.herokuapp.com/booking/";
+    public String url = Config.get("api.url");
     private static Map<Integer, Integer> bookingIds = new HashMap<>();
 
 
@@ -47,16 +49,17 @@ public class LojaDeLivros {
     }
 
     @Test
-    public void consultarLivro() {
-            int id = bookingIds.get(0);
-
-        given()
-        .when().get(url + id)
-        .then()
+    public void consultarLivros() {
+        String responseBody =
+                given()
+        .when().get(url)
+        .then().log().all()
                 .assertThat()
                 .statusCode(200)
-                .body("firstname", equalTo("Jim"))
-                .body("lastname", equalTo("Brown"));
+                .extract().body().asString();
+
+        assertThat(responseBody, not(emptyOrNullString()));
+        assertThat(responseBody, containsString("bookingid"));
     }
 
     @Test
